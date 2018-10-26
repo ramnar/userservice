@@ -1,4 +1,4 @@
-def CONTAINER_NAME="test"
+def CONTAINER_NAME="userapplication"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="ramnar"
 def HTTP_PORT="8090"
@@ -18,16 +18,16 @@ node {
     }
 
     stage("Image Prune"){
-        imagePrune(CONTAINER_NAME)
+        deleteOldImage(CONTAINER_NAME)
     }
 
     stage('Image Build'){
-        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+        buildImage(CONTAINER_NAME, CONTAINER_TAG)
     }
     
     stage('Push to Docker Registry'){
             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
+                pushToRegistry(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
             }
     }
     
@@ -37,27 +37,27 @@ node {
 
 }
 
-def imagePrune(containerName){
+def deleteOldImagex(containerName){
     try {
-        sh "sudo docker image prune -f"
-        sh "sudo docker stop $containerName"
+        sh "sudo docker stop $containerName" /*Stop running docker containers*/
+        sh "sudo docker image prune -f" /*Delete the docker image*/
     } catch(error){}
 }
 
-def imageBuild(containerName, tag){
-    sh "sudo docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
+def buildImage(containerName, tag){
+    sh "sudo docker build -t $containerName:$tag --pull --no-cache ." /*build docker image, pull latest image from repo, donot use cache*/
     echo "Image build complete"
 }
 
-def pushToImage(containerName, tag, dockerUser, dockerPassword){
-    sh "sudo docker login -u $dockerUser -p $dockerPassword"
-    sh "sudo docker tag $containerName:$tag $dockerUser/$containerName:$tag"
-    sh "sudo docker push $dockerUser/$containerName:$tag"
+def pushToRegistry(containerName, tag, dockerHubUser, dockerPassword){
+    sh "sudo docker login -u $dockerUser -p $dockerPassword" /*login to docker registry*/
+    sh "sudo docker tag $containerName:$tag $dockerHubUser/$containerName:$tag"/*label docker image with localname and registry name*/
+    sh "sudo docker push $dockerHubUser/$containerName:$tag"  /*push to docker registry*/
     echo "Image push complete"
 }
 
 def runApp(containerName, tag, dockerHubUser, httpPort){
-    sh "sudo docker pull $dockerHubUser/$containerName"
-    sh "sudo docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
+    sh "sudo docker pull $dockerHubUser/$containerName" /*pull image from to docker registry*/
+    sh "sudo docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag" /*run docker container in detached mode, map ports, automatically remove when it exits */
     echo "Application started on port: ${httpPort} (http)"
 }
