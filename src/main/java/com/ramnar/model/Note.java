@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table
 //@EntityListeners(AuditingEntityListener.class)
@@ -18,7 +20,7 @@ public class Note implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	// @ApiModelProperty(notes = "Title of the notes", required =true)
+	@ApiModelProperty(notes = "Title of the notes", required =true)
 	@NotBlank
 	private String title;
 
@@ -26,16 +28,17 @@ public class Note implements Serializable {
 	private String content;
 
 //	@Column(nullable = false, updatable = false)
-//	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.DATE)
 //	@CreatedDate
 //	private Date createdAt;
 //	@Column(nullable = false)
-//	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.DATE)
 //	@LastModifiedDate
 //	private Date updatedAt;
 //
-//	public Date getUpdatedAt() {
-//		return updatedAt;
+//	public String getUpdatedAt() {
+//		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		return sdf.format(updatedAt);
 //	}
 //
 //	public void setUpdatedAt(Date updatedAt) {
@@ -66,8 +69,9 @@ public class Note implements Serializable {
 		this.content = content;
 	}
 
-//	public Date getCreatedAt() {
-//		return createdAt;
+//	public String getCreatedAt() {
+//		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		return sdf.format(createdAt);
 //	}
 //
 //	public void setCreatedAt(Date createdAt) {
