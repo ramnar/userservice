@@ -4,11 +4,6 @@ def DOCKER_HUB_USER="ramnar"
 def HTTP_PORT="8090"
 
 node {
-    /*stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        def mavenHome  = tool 'myMaven'
-        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-    }*/
 
     stage('Checkout') {
         /* Let's make sure we have the repository cloned to our workspace */
