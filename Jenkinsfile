@@ -55,7 +55,7 @@ def buildImage(containerName, tag){
 }
 
 def pushToRegistry(containerName, tag, dockerHubUser, dockerPassword){
-    sh "docker login -u $dockerUser -p $dockerPassword" /*login to docker registry*/
+    sh "docker login -u $dockerHubUser -p $dockerPassword" /*login to docker registry*/
     sh "docker tag $containerName:$tag $dockerHubUser/$containerName:$tag"/*label docker image with localname and registry name*/
     sh "docker push $dockerHubUser/$containerName:$tag"  /*push to docker registry*/
     echo "Image push complete"
