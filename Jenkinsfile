@@ -44,8 +44,8 @@ node {
 
 def deleteOldImage(containerName){
     try {
-        sh "docker stop $containerName" /*Stop running docker containers*/
         sh "docker image prune -f" /*Delete the docker image*/
+        sh "docker stop $containerName" /*Stop running docker containers*/
     } catch(error){}
 }
 
