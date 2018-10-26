@@ -1,4 +1,4 @@
-def CONTAINER_NAME="userapplication"
+def CONTAINER_NAME="sampleservice"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="ramnar"
 def HTTP_PORT="8090"

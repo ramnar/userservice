@@ -19,12 +19,8 @@ import com.ramnar.exception.ResourceNotFoundException;
 import com.ramnar.model.Note;
 import com.ramnar.service.NoteService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 @RequestMapping("/api")
-@Api(value = "Notes Application", description = "API to manage notes application")
 public class NoteController {
 
 	@Autowired
@@ -32,7 +28,6 @@ public class NoteController {
 
 	// Get All Notes
 	@GetMapping("/notes")
-	@ApiOperation(value = "Display all notes", response = List.class)
 	public List<Note> getAllNotes() {
 		return noteService.getAllNotes();
 	}
