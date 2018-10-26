@@ -15,3 +15,22 @@ MySQL Database - bootwebservice in bitbucket
 Ldap authentication - bootwebservice in bitbucket
 
 
+
+#Spring Boot Reference
+
+http://www.springboottutorial.com/creating-rest-service-with-spring-boot
+
+#Junit tests for web service
+
+http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
+
+#oauth resources
+
+https://gigsterous.github.io/engineering/2017/03/01/spring-boot-4.html
+
+https://jugbd.org/2017/09/19/implementing-oauth2-spring-boot-spring-security/
+
+https://www.devglan.com/spring-security/spring-boot-security-oauth2-example
+
+
+
