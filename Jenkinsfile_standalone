@@ -42,7 +42,7 @@ node {
 
 }
 
-def deleteOldImagex(containerName){
+def deleteOldImage(containerName){
     try {
         sh "sudo docker stop $containerName" /*Stop running docker containers*/
         sh "sudo docker image prune -f" /*Delete the docker image*/
